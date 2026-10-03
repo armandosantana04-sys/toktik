@@ -32,4 +32,24 @@ void main() {
 
     expect(provider.videos.single.comments, ['Buen video']);
   });
+
+  test('genera un texto compartible para videos locales y remotos', () {
+    final localVideo = VideoPost(
+      caption: 'Video local',
+      url: 'assets/videos/1b.mp4',
+    );
+    final remoteVideo = VideoPost(
+      caption: 'Video remoto',
+      url: 'https://example.com/video.mp4',
+    );
+
+    expect(
+      localVideo.shareText,
+      'Mira este video "Video local": https://toktik.app/watch?title=Video%20local',
+    );
+    expect(
+      remoteVideo.shareText,
+      'Mira este video "Video remoto": https://example.com/video.mp4',
+    );
+  });
 }

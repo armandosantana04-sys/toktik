@@ -15,6 +15,20 @@ class VideoPost {
     this.comments = const [],
   });
 
+  bool get hasHttpUrl {
+    final uri = Uri.tryParse(url);
+    return uri != null && (uri.scheme == 'http' || uri.scheme == 'https');
+  }
+
+  String get shareUrl {
+    if (hasHttpUrl) return url;
+    return 'https://toktik.app/watch?title=${Uri.encodeComponent(caption)}';
+  }
+
+  String get shareText {
+    return 'Mira este video "$caption": $shareUrl';
+  }
+
   VideoPost copyWith({
     int? likes,
     int? views,
